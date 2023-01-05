@@ -60,6 +60,7 @@
 feed game quit
 */
 
+#include <Arduino.h>
 #include <LiquidCrystal.h>
 
 

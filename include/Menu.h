@@ -1,9 +1,16 @@
 #include "sprites.h"
 #include "DisplayFunctions.h"
+#include "Pet.h"
+
+#ifndef MENU_H
+#define MENU_H
 
 int pinAccept = 8;
 int pinDecline = 9;
 int pinMenu = 10;
+bool namePicked = false;
+char characters[5] = {48, 48, 48, 48, 48}; //columns for name
+Pet slime("default");
 
 class Menu {
 
@@ -71,3 +78,5 @@ public:
     // game over when tamagotchi is not fed or played with
     void gameOverScreen();
 };
+
+#endif //MENU_H

@@ -1,21 +1,21 @@
-#ifndef FOOD_H
-#define FOOD_H
+// #ifndef FOOD_H
+// #define FOOD_H
 
 
-class Food {
-  public:
-  String type;
-  int nutrition;
+// class Food {
+//   public:
+//   String type;
+//   int nutrition;
   
-  Food(String foodGained, int nutritionGained);
+//   Food(String foodGained, int nutritionGained);
 
-  void setFoodSprite();
+//   void setFoodSprite();
   
-  void copyArray(byte copyFrom[]);
+//   void copyArray(byte copyFrom[]);
   
-  void printFood();
+//   void printFood();
 
 
-};
+// };
 
-#endif // FOOD_H
+// #endif // FOOD_H

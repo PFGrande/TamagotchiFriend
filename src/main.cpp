@@ -64,7 +64,7 @@ feed game quit
 //#include <LiquidCrystal.h>
 //#include "sprites.h"
 //#include "DisplayFunctions.h"
-#include "Food.h"
+//#include "Food.h"
 #include "Menu.h"
 
 
@@ -79,114 +79,114 @@ int countRewards = 0;
 
 //LiquidCrystal lcd_1(12, 11, 5, 4, 3, 2); moved to PrintFunctions.h
 
-bool namePicked = false;
+//bool namePicked = false;
 
-char characters[5] = {48, 48, 48, 48, 48}; //columns for name
+//char characters[5] = {48, 48, 48, 48, 48}; //columns for name
 
-class Pet {
+// class Pet {
   
-  public:
-  String name;
-  int hunger = 5;
-  int joy = 5;
-  int sad = 0;
-  int counter = 0;
-  int placement = 0;
-  //Food foodInventory[5];
+//   public:
+//   String name;
+//   int hunger = 5;
+//   int joy = 5;
+//   int sad = 0;
+//   int counter = 0;
+//   int placement = 0;
+//   //Food foodInventory[5];
   
-  Pet(String enteredName) {
-  	name = enteredName;
+//   Pet(String enteredName) {
+//   	name = enteredName;
   
-  }
+//   }
   
-  //draw slime - 1bottL 2bottR 3center
-  void drawSlime (int location) {
-    switch(location) {
-      case 1:
-        lcd_1.setCursor(0,1);
-    	lcd_1.write(1);
-    	lcd_1.setCursor(1,1);
-  		lcd_1.write(2);
-      	break;      
+//   //draw slime - 1bottL 2bottR 3center
+//   void drawSlime (int location) {
+//     switch(location) {
+//       case 1:
+//         lcd_1.setCursor(0,1);
+//     	lcd_1.write(1);
+//     	lcd_1.setCursor(1,1);
+//   		lcd_1.write(2);
+//       	break;      
       
-      case 2:
-        lcd_1.setCursor(14,1);
-    	lcd_1.write(1);
-    	lcd_1.setCursor(15,1);
-  		lcd_1.write(2);
-      	break;
-      case 3:
-      	lcd_1.setCursor(7,1);
-    	lcd_1.write(1);
-    	lcd_1.setCursor(8,1);
-  		lcd_1.write(2);
-    	break;
+//       case 2:
+//         lcd_1.setCursor(14,1);
+//     	lcd_1.write(1);
+//     	lcd_1.setCursor(15,1);
+//   		lcd_1.write(2);
+//       	break;
+//       case 3:
+//       	lcd_1.setCursor(7,1);
+//     	lcd_1.write(1);
+//     	lcd_1.setCursor(8,1);
+//   		lcd_1.write(2);
+//     	break;
     
     
-    }
+//     }
   	
-  }
-  //HOW MOVED IN MINIGAME
-  void moveSlime(int moved) {
+//   }
+//   //HOW MOVED IN MINIGAME
+//   void moveSlime(int moved) {
     
-    //relative to left side position should not go over or under these
-    if (placement == 0) {
-      moved = 0;
-    } else if(placement == 15) {
-      moved = 15;
-    }
-  	lcd_1.setCursor(moved, 1);
-    lcd_1.write(1);
-    lcd_1.setCursor(moved+1, 1);
-    lcd_1.write(2);
+//     //relative to left side position should not go over or under these
+//     if (placement == 0) {
+//       moved = 0;
+//     } else if(placement == 15) {
+//       moved = 15;
+//     }
+//   	lcd_1.setCursor(moved, 1);
+//     lcd_1.write(1);
+//     lcd_1.setCursor(moved+1, 1);
+//     lcd_1.write(2);
     
-  }
-  //Following methods will occur in certain time intervals.
-  //Joy will deplete for as long as no activities are done
-  void depleteStats() {
-    counter++;
-    //Serial.print(counter);
-    //Serial.print(" ");
-    if (counter > 100 && joy > 0 && counter < 102) {
-    	joy = joy - 1;
-      	lcd_1.clear();//clears to hunger and joy maxs dont overlap
-    }
-    if (counter > 200 && hunger > 0 && counter < 202) {
-      hunger = hunger - 1;
-      counter = 0;
-      lcd_1.clear();//clears to hunger and joy maxs dont overlap
-    }
-    /*for (int i = 0; i < 15 - joy) {
+//   }
+//   //Following methods will occur in certain time intervals.
+//   //Joy will deplete for as long as no activities are done
+//   void depleteStats() {
+//     counter++;
+//     //Serial.print(counter);
+//     //Serial.print(" ");
+//     if (counter > 100 && joy > 0 && counter < 102) {
+//     	joy = joy - 1;
+//       	lcd_1.clear();//clears to hunger and joy maxs dont overlap
+//     }
+//     if (counter > 200 && hunger > 0 && counter < 202) {
+//       hunger = hunger - 1;
+//       counter = 0;
+//       lcd_1.clear();//clears to hunger and joy maxs dont overlap
+//     }
+//     /*for (int i = 0; i < 15 - joy) {
     	
     
-    }*/
-  }
+//     }*/
+//   }
   
-  /*void increaseSad() {
-    if(hunger < 10) {
+//   /*void increaseSad() {
+//     if(hunger < 10) {
     	
     
-    }
-  }*/
+//     }
+//   }*/
   
-  void incrementStats(int addJoy, int addHunger) {
-  	joy = joy + addJoy;
-  	hunger = hunger + addHunger;
-    if (joy > 15) {
-      joy = 15;
-    }
+//   void incrementStats(int addJoy, int addHunger) {
+//   	joy = joy + addJoy;
+//   	hunger = hunger + addHunger;
+//     if (joy > 15) {
+//       joy = 15;
+//     }
   
-    if (hunger > 15) {
-      hunger = 15;
+//     if (hunger > 15) {
+//       hunger = 15;
     
     
-    }
-  }
+//     }
+//   }
   
 
-};
+// };
 
-Pet slime("default");
+//Pet slime("default");
 
 // class Menu {
 

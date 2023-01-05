@@ -60,8 +60,12 @@
 feed game quit
 */
 
-#include <Arduino.h>
+//#include <Arduino.h> moved to the sprites.h file
 #include <LiquidCrystal.h>
+#include "sprites.h"
+#include "DisplayFunctions.h"
+#include "Food.h"
+
 
 
 
@@ -72,176 +76,54 @@ int pinDecline = 9;
 int pinMenu = 10;
 int countRewards = 0;
 
-LiquidCrystal lcd_1(12, 11, 5, 4, 3, 2);
+//LiquidCrystal lcd_1(12, 11, 5, 4, 3, 2); moved to PrintFunctions.h
 
 bool namePicked = false;
 
 char characters[5] = {48, 48, 48, 48, 48}; //columns for name
 
-byte arm[] = {
-  B00000,
-  B00000,
-  B11111,
-  B11111,
-  B11111,
-  B11111,
-  B00000,
-  B00000
-};
-
-byte foodSpriteArray[] = {
-  B00000,
-  B01110,
-  B11001,
-  B10011,
-  B10101,
-  B01110,
-  B00000,
-  B00000
-};
-
-byte left[] = {
-  B00000,
-  B00011,
-  B00100,
-  B01000,
-  B01010,
-  B01000,
-  B10000,
-  B11111
-};
-
-byte right[] = {
-  B00000,
-  B11000,
-  B00100,
-  B01010,
-  B00010,
-  B10001,
-  B00001,
-  B11111
-};
-
-//Types of food sprites:
-byte cookieSprite[] = {
-      	B00000,
-        B01110,
-        B11001,
-        B10011,
-        B10101,
-        B01110,
-        B00000,
-        B00000
-      };
-byte balloonSprite[] = {
-        B01110,
-        B10001,
-        B10001,
-        B10001,
-        B01010,
-        B00100,
-        B00010,
-        B00100
-      }; 
-
-//THE FOLLOWING ARE BALL SPRITES
-byte currentBall[8];
-
-byte ball1[] = {
-  B01110,
-  B01110,
-  B01110,
-  B00000,
-  B00000,
-  B00000,
-  B00000,
-  B00000
-};
-
-byte ball2[] = {
-  B00000,
-  B01110,
-  B01110,
-  B01110,
-  B00000,
-  B00000,
-  B00000,
-  B00000
-};
-
-byte ball3[] = {
-  B00000,
-  B00000,
-  B01110,
-  B01110,
-  B01110,
-  B00000,
-  B00000,
-  B00000
-};
-byte ball4[] = {
-  B00000,
-  B00000,
-  B00000,
-  B01110,
-  B01110,
-  B01110,
-  B00000,
-  B00000
-};
-byte ball5[] = {
-  B00000,
-  B00000,
-  B00000,
-  B00000,
-  B01110,
-  B01110,
-  B01110,
-  B00000
-};
-
-class Food {
-  public:
-  String type;
-  int nutrition;
+// class Food {
+//   public:
+//   String type;
+//   int nutrition;
   
   
-  Food(String foodGained, int nutritionGained){
-  	type = foodGained;
-    nutrition = nutritionGained;
-    countRewards++;
+//   Food(String foodGained, int nutritionGained){
+//   	type = foodGained;
+//     nutrition = nutritionGained;
+//     countRewards++;
   
-  }
+//   }
   
   
-  void setFoodSprite() {
-    if (type == "cookie") {
-      copyArray(cookieSprite);
-    } else if (type == "balloon") {
-      copyArray(balloonSprite);
-    }  
-  }
+//   void setFoodSprite() {
+//     if (type == "cookie") {
+//       copyArray(cookieSprite);
+//     } else if (type == "balloon") {
+//       copyArray(balloonSprite);
+//     }  
+//   }
   
-  void copyArray(byte copyFrom[]){
-    for (int i = 0; i < 8; i++) {
-      foodSpriteArray[i] = copyFrom[i];
+//   void copyArray(byte copyFrom[]){
+//     for (int i = 0; i < 8; i++) {
+//       foodSpriteArray[i] = copyFrom[i];
     
-    }
-    lcd_1.createChar(4, foodSpriteArray);
-  }
+//     }
+//     lcd_1.createChar(4, foodSpriteArray);
+//   }
   
-  void printFood() {
-  	lcd_1.setCursor(0,2);
-    lcd_1.write(4);
+//   void printFood() {
+//   	lcd_1.setCursor(0,2);
+//     lcd_1.write(4);
     
   
   
-  }
+//   }
   
 
 
 
-};
+// };
 
 class Pet {
   
@@ -395,6 +277,7 @@ class Menu {
     
 
   }
+
   
   
   int returnInput() {
@@ -865,6 +748,8 @@ class Menu {
   
   
   }
+  
+};
 
 Menu theScreen;//initializes my scenes
 //Pet slime("default");
@@ -907,34 +792,34 @@ void loop()
   //seconds += 1;
 }
 
-void printArray(char array[], int startingX, int startingY, int size) {
-  int temp1 = startingX;//Y doesnt change so does not have to be saved
-  //5 is had coded because for some reason the size of method is not working for me
-  for (int i = 0; i < size; i++){
-    lcd_1.setCursor(startingX, startingY);
-  	lcd_1.print(array[i]);
-    startingX++;
+// void printArray(char array[], int startingX, int startingY, int size) {
+//   int temp1 = startingX;//Y doesnt change so does not have to be saved
+//   //5 is had coded because for some reason the size of method is not working for me
+//   for (int i = 0; i < size; i++){
+//     lcd_1.setCursor(startingX, startingY);
+//   	lcd_1.print(array[i]);
+//     startingX++;
     
-  }
-  lcd_1.setCursor(temp1, startingY);//resets the cursor
+//   }
+//   lcd_1.setCursor(temp1, startingY);//resets the cursor
 
-}
+// }
 
-void printName (char array[]) {
-  for (int i = 0; i < 5; i++) {
-  	Serial.print(array[i]);
+// void printName (char array[]) {
+//   for (int i = 0; i < 5; i++) {
+//   	Serial.print(array[i]);
   
-  }
+//   }
 
-}
+// }
 
-void print_line_to_row (String line, int row, bool removeArrow) {
-	lcd_1.setCursor(0, row);
-	lcd_1.print(line);
-  if (row == 0 && removeArrow == false) {
+// void print_line_to_row (String line, int row, bool removeArrow) {
+// 	lcd_1.setCursor(0, row);
+// 	lcd_1.print(line);
+//   if (row == 0 && removeArrow == false) {
     
-   	lcd_1.setCursor((line.length())+2, 0);
-    lcd_1.print("<-");  
+//    	lcd_1.setCursor((line.length())+2, 0);
+//     lcd_1.print("<-");  
   
-  }
-}
+//   }
+// }

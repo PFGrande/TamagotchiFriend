@@ -1,0 +1,47 @@
+{
+  "C_Cpp_Runner.cCompilerPath": "/Users/pedro/.platformio/packages/toolchain-atmelavr/bin/avr-gcc",
+  "C_Cpp_Runner.cppCompilerPath": "/Users/pedro/.platformio/packages/toolchain-atmelavr/bin/avr-g++",
+  "C_Cpp_Runner.debuggerPath": "/Users/pedro/.platformio/packages/toolchain-atmelavr/bin/avr-gdb",
+  "C_Cpp_Runner.cStandard": "c11",
+  "C_Cpp_Runner.cppStandard": "c++11",
+  "C_Cpp_Runner.msvcBatchPath": "",
+  "C_Cpp_Runner.useMsvc": false,
+  "C_Cpp_Runner.warnings": [
+    "-Wall",
+    "-Wextra",
+    "-Wpedantic",
+    "-Wshadow",
+    "-Wformat=2",
+    "-Wconversion",
+    "-Wnull-dereference",
+    "-Wsign-conversion"
+  ],
+  "C_Cpp_Runner.enableWarnings": true,
+  "C_Cpp_Runner.warningsAsError": false,
+  "C_Cpp_Runner.compilerArgs": [],
+  "C_Cpp_Runner.linkerArgs": [],
+  "C_Cpp_Runner.includePaths": [
+    "/Users/pedro/Documents/PlatformIO/Projects/TamagotchiFriend/include",
+    "/Users/pedro/Documents/PlatformIO/Projects/TamagotchiFriend/src",
+    "/Users/pedro/.platformio/packages/framework-arduino-avr/cores/arduino",
+    "/Users/pedro/.platformio/packages/framework-arduino-avr/variants/standard",
+    "/Users/pedro/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+    "/Users/pedro/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+    "/Users/pedro/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+    "/Users/pedro/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+    "/Users/pedro/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+    ""
+  ],
+  "C_Cpp_Runner.includeSearch": [
+    "*",
+    "**/*"
+  ],
+  "C_Cpp_Runner.excludeSearch": [
+    "**/build",
+    "**/build/**",
+    "**/.*",
+    "**/.*/**",
+    "**/.vscode",
+    "**/.vscode/**"
+  ]
+}

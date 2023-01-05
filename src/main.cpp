@@ -61,19 +61,20 @@ feed game quit
 */
 
 //#include <Arduino.h> moved to the sprites.h file
-#include <LiquidCrystal.h>
-#include "sprites.h"
-#include "DisplayFunctions.h"
+//#include <LiquidCrystal.h>
+//#include "sprites.h"
+//#include "DisplayFunctions.h"
 #include "Food.h"
+#include "Menu.h"
 
 
 
 
 int seconds = 0;
 
-int pinAccept = 8;
-int pinDecline = 9;
-int pinMenu = 10;
+// int pinAccept = 8;
+// int pinDecline = 9;
+// int pinMenu = 10;
 int countRewards = 0;
 
 //LiquidCrystal lcd_1(12, 11, 5, 4, 3, 2); moved to PrintFunctions.h
@@ -81,49 +82,6 @@ int countRewards = 0;
 bool namePicked = false;
 
 char characters[5] = {48, 48, 48, 48, 48}; //columns for name
-
-// class Food {
-//   public:
-//   String type;
-//   int nutrition;
-  
-  
-//   Food(String foodGained, int nutritionGained){
-//   	type = foodGained;
-//     nutrition = nutritionGained;
-//     countRewards++;
-  
-//   }
-  
-  
-//   void setFoodSprite() {
-//     if (type == "cookie") {
-//       copyArray(cookieSprite);
-//     } else if (type == "balloon") {
-//       copyArray(balloonSprite);
-//     }  
-//   }
-  
-//   void copyArray(byte copyFrom[]){
-//     for (int i = 0; i < 8; i++) {
-//       foodSpriteArray[i] = copyFrom[i];
-    
-//     }
-//     lcd_1.createChar(4, foodSpriteArray);
-//   }
-  
-//   void printFood() {
-//   	lcd_1.setCursor(0,2);
-//     lcd_1.write(4);
-    
-  
-  
-//   }
-  
-
-
-
-// };
 
 class Pet {
   
@@ -230,526 +188,526 @@ class Pet {
 
 Pet slime("default");
 
-class Menu {
+// class Menu {
 
-  public:
-  String name;
-  //int counter = 0;
-  String currentScreen;
-  int ballPhase = 0;
-  int ballPos;
-  int ballPositions[14] = {5, 7, 4, 5, 6, 9, 13, 11, 8, 5, 7, 4, 2, 0};//pos on x axis
-  int ballIndex; 
-  int score = 0;
+//   public:
+//   String name;
+//   //int counter = 0;
+//   String currentScreen;
+//   int ballPhase = 0;
+//   int ballPos;
+//   int ballPositions[14] = {5, 7, 4, 5, 6, 9, 13, 11, 8, 5, 7, 4, 2, 0};//pos on x axis
+//   int ballIndex; 
+//   int score = 0;
     
-  Menu() {
+//   Menu() {
   	
-  }
+//   }
   
-  //THE TITLE SCREEN
-  void titleScreen() {
-    currentScreen = "title";
-  	lcd_1.print("Welcome!");
-  	delay(500);
-  	lcd_1.clear();
+//   //THE TITLE SCREEN
+//   void titleScreen() {
+//     currentScreen = "title";
+//   	lcd_1.print("Welcome!");
+//   	delay(500);
+//   	lcd_1.clear();
   	
-    if (namePicked == false) {
-      //naming part
-      lcd_1.print("name it:");
+//     if (namePicked == false) {
+//       //naming part
+//       lcd_1.print("name it:");
 
-      //draws slime guy/bob 
-      lcd_1.createChar(1, left);
-      lcd_1.createChar(2, right);
-      lcd_1.setCursor(14,1);
-      lcd_1.write(1);
-      lcd_1.setCursor(15,1);
-      lcd_1.write(2);
+//       //draws slime guy/bob 
+//       lcd_1.createChar(1, left);
+//       lcd_1.createChar(2, right);
+//       lcd_1.setCursor(14,1);
+//       lcd_1.write(1);
+//       lcd_1.setCursor(15,1);
+//       lcd_1.write(2);
       
 
-      //triggers name ui
-      //Serial.print("name time");
-      name = pickName();
-      slime.name = name;
-      Serial.print(slime.name);
-      namePicked = true;
+//       //triggers name ui
+//       //Serial.print("name time");
+//       name = pickName();
+//       slime.name = name;
+//       Serial.print(slime.name);
+//       namePicked = true;
      
-    }
+//     }
     
 
-  }
+//   }
 
   
   
-  int returnInput() {
-    delay(140);//helps avoid miss-inputs
-	int result = 3;//3 means some loops will keep going
-    int buttonPress = 0;
-    //int ballPhase;//for the minigame portion
+//   int returnInput() {
+//     delay(140);//helps avoid miss-inputs
+// 	int result = 3;//3 means some loops will keep going
+//     int buttonPress = 0;
+//     //int ballPhase;//for the minigame portion
     
-    /*I could probably just check if the result is equal to 3
-    but ill just play it safe because i dont want to mess up
+//     /*I could probably just check if the result is equal to 3
+//     but ill just play it safe because i dont want to mess up
     
-    */
+//     */
     
-    do {
-      if (currentScreen == "main") {
-      	slime.depleteStats();
-        drawMainUI();
-        if (slime.hunger == 0 && slime.joy == 0) {
-          gameOverScreen();	
+//     do {
+//       if (currentScreen == "main") {
+//       	slime.depleteStats();
+//         drawMainUI();
+//         if (slime.hunger == 0 && slime.joy == 0) {
+//           gameOverScreen();	
         
-        }
+//         }
       
-      } 
-     if(digitalRead(pinAccept) == HIGH) {
-         //lcd_1.print("ok");
-         result = 0;
-         buttonPress++;
-         //return 0;
-     } else if(digitalRead(pinDecline) == HIGH){
-         //lcd_1.print("NOOOOOOOO");
-         result = 1;
-         buttonPress++;
-         //return 1;
-     } else if(digitalRead(pinMenu) == HIGH) {
-         //lcd_1.print("menu");
-         buttonPress++;
-         result = 2;
-         //return 2;	
-     } 
+//       } 
+//      if(digitalRead(pinAccept) == HIGH) {
+//          //lcd_1.print("ok");
+//          result = 0;
+//          buttonPress++;
+//          //return 0;
+//      } else if(digitalRead(pinDecline) == HIGH){
+//          //lcd_1.print("NOOOOOOOO");
+//          result = 1;
+//          buttonPress++;
+//          //return 1;
+//      } else if(digitalRead(pinMenu) == HIGH) {
+//          //lcd_1.print("menu");
+//          buttonPress++;
+//          result = 2;
+//          //return 2;	
+//      } 
       
       
-       if (currentScreen == "minigame") {
-      	//ball method goes here.
-         delay(200);
-         if (ballIndex > 14) {
-         	ballIndex = 0;
+//        if (currentScreen == "minigame") {
+//       	//ball method goes here.
+//          delay(200);
+//          if (ballIndex > 14) {
+//          	ballIndex = 0;
          
-         }
-         //ballIndex++;
-          ballPhase++;
-          claimPoint();//by connecting it to movement/inputs i know where player is 100% of the time
+//          }
+//          //ballIndex++;
+//           ballPhase++;
+//           claimPoint();//by connecting it to movement/inputs i know where player is 100% of the time
          
-         drawBall(ballPhase, ballPositions[ballIndex]);
-      	 //claimPoint();
-         //ballIndex++;
-      }
+//          drawBall(ballPhase, ballPositions[ballIndex]);
+//       	 //claimPoint();
+//          //ballIndex++;
+//       }
       
-    } while (result == 3);
+//     } while (result == 3);
    
-    delay(100);//delays result to elimnate any holding
+//     delay(100);//delays result to elimnate any holding
     
-    return result;
+//     return result;
     
     
-  }
-  //PICK NAME SCREEN
-  String pickName() {
-    currentScreen = "name";
-  	String enteredName = "BOB";
-    int currentIndex = 0;//index of the lcd 0-4
-    printArray(characters, 0, 1, 5);
-    delay(100);
+//   }
+//   //PICK NAME SCREEN
+//   String pickName() {
+//     currentScreen = "name";
+//   	String enteredName = "BOB";
+//     int currentIndex = 0;//index of the lcd 0-4
+//     printArray(characters, 0, 1, 5);
+//     delay(100);
     
-    int userInput;
-    char onChar;//Current char user is on in column
-    //Allows the user to enter chars for name
-    do {
-      onChar = 65;
+//     int userInput;
+//     char onChar;//Current char user is on in column
+//     //Allows the user to enter chars for name
+//     do {
+//       onChar = 65;
       
-      //I think I must reset user input after this!!! or else itll stay at 2
-      //I was right B)
-      while (userInput != 2) {
-        //name bug has been squashed (the one where first char was displayed as A
-        lcd_1.setCursor(currentIndex, 1);//new
-        lcd_1.print(onChar);//new
-        userInput = returnInput();
-        //delay(150);//delays to prevent multiple clicks on home button
-        //lcd_1.setCursor(currentIndex, 1);//moves cursor to where we are
-        if (onChar > 90) {//checks if user is going out of A-Z
-        	onChar = 65;
-        } else if (onChar < 65) {
-        	onChar = 90;
-        //switched because it was unintuative
-        } else if (userInput == 1){//this was once 0
-        	onChar++;        
-        } else if (userInput == 0) {//this was once 1
-        	onChar--;
-        }
-      }
-      userInput = 3;//resets so loop above works
-      //Serial.println(currentIndex + " current i");
-      characters[currentIndex] = onChar;//sends the picked char to array
-      currentIndex++;//increments index
-      //lcd_1.setCursor(currentIndex, 1);
-      printArray(characters, 0, 1, 5);//0 used to be currentIndex for some reason
-      //Serial.print(characters);
-      //Serial.print("  ");
+//       //I think I must reset user input after this!!! or else itll stay at 2
+//       //I was right B)
+//       while (userInput != 2) {
+//         //name bug has been squashed (the one where first char was displayed as A
+//         lcd_1.setCursor(currentIndex, 1);//new
+//         lcd_1.print(onChar);//new
+//         userInput = returnInput();
+//         //delay(150);//delays to prevent multiple clicks on home button
+//         //lcd_1.setCursor(currentIndex, 1);//moves cursor to where we are
+//         if (onChar > 90) {//checks if user is going out of A-Z
+//         	onChar = 65;
+//         } else if (onChar < 65) {
+//         	onChar = 90;
+//         //switched because it was unintuative
+//         } else if (userInput == 1){//this was once 0
+//         	onChar++;        
+//         } else if (userInput == 0) {//this was once 1
+//         	onChar--;
+//         }
+//       }
+//       userInput = 3;//resets so loop above works
+//       //Serial.println(currentIndex + " current i");
+//       characters[currentIndex] = onChar;//sends the picked char to array
+//       currentIndex++;//increments index
+//       //lcd_1.setCursor(currentIndex, 1);
+//       printArray(characters, 0, 1, 5);//0 used to be currentIndex for some reason
+//       //Serial.print(characters);
+//       //Serial.print("  ");
       
 
           
-    } while(characters[4] == 48);//not sure what to put here yet
-    printName(characters);
-    Serial.print("IDID IT");
-    enteredName = characters;
+//     } while(characters[4] == 48);//not sure what to put here yet
+//     printName(characters);
+//     Serial.print("IDID IT");
+//     enteredName = characters;
 
-  	return enteredName;
-  }
+//   	return enteredName;
+//   }
   
-  //Main screen will run until the user chooses to to draw options and quit
-  void drawMainScr() {
-    currentScreen = "main";
-    int userInput;
+//   //Main screen will run until the user chooses to to draw options and quit
+//   void drawMainScr() {
+//     currentScreen = "main";
+//     int userInput;
     
-    drawMainUI();
-    userInput = returnInput();
-    Serial.print(userInput);
+//     drawMainUI();
+//     userInput = returnInput();
+//     Serial.print(userInput);
   	
-    switch (userInput) {
-      case 0:
-      Serial.print("button1");
-      break;
-      case 1: 
-      Serial.print("button2");
-      break;
-      case 2: 
-      drawOptions();
-      break;
-      default:
-      Serial.print("my code sucks lol");
-      break;
-    }
+//     switch (userInput) {
+//       case 0:
+//       Serial.print("button1");
+//       break;
+//       case 1: 
+//       Serial.print("button2");
+//       break;
+//       case 2: 
+//       drawOptions();
+//       break;
+//       default:
+//       Serial.print("my code sucks lol");
+//       break;
+//     }
     
     
   
-  }
+//   }
   
-  //draws the attributes and slime
-  void drawMainUI() {
-    //returns error if i try mixing ints and chars/strings in .print
-    lcd_1.setCursor(0,0);
-    lcd_1.print("H:");
-    lcd_1.print(slime.hunger);
-    lcd_1.print("/15");
-    lcd_1.setCursor(0,1);
-    lcd_1.print("J:");
-    lcd_1.print(slime.joy);
-    lcd_1.print("/15");
-    slime.drawSlime(2);
+//   //draws the attributes and slime
+//   void drawMainUI() {
+//     //returns error if i try mixing ints and chars/strings in .print
+//     lcd_1.setCursor(0,0);
+//     lcd_1.print("H:");
+//     lcd_1.print(slime.hunger);
+//     lcd_1.print("/15");
+//     lcd_1.setCursor(0,1);
+//     lcd_1.print("J:");
+//     lcd_1.print(slime.joy);
+//     lcd_1.print("/15");
+//     slime.drawSlime(2);
     
-  }
+//   }
   
   
-  void drawOptions() {
-    currentScreen = "options";
-  	//Serial.print("these are the options"); works
-    lcd_1.clear();
-    int userInput;
-    int optionsPage = 0;
-    do {
-      if (optionsPage >= 4) {
-      	optionsPage = 0;
+//   void drawOptions() {
+//     currentScreen = "options";
+//   	//Serial.print("these are the options"); works
+//     lcd_1.clear();
+//     int userInput;
+//     int optionsPage = 0;
+//     do {
+//       if (optionsPage >= 4) {
+//       	optionsPage = 0;
       
-      }
-      printOptionsMenu(optionsPage);
-      userInput = returnInput();
+//       }
+//       printOptionsMenu(optionsPage);
+//       userInput = returnInput();
       
       
-      switch(userInput) {
-        case 0:
-          //enters option chosen by user
-        lcd_1.clear();
-          switch(optionsPage) {
-          	case 0: 
-            	optionsPage = 0;//new, resets the menu to the top
-            	animateFriend();
-            	Serial.print("buddy");
-            	break;
-            case 1:
-            optionsPage = 0;//new, resets the menu to the top
-            drawFeed();
-            Serial.print("Feed");
-            	break;
-            case 2: 
-            optionsPage = 0;//new, resets the menu to the top
-            minigame();
-            Serial.print("game");
-            	break;
-            case 3: 
-            optionsPage = 0;//new, resets the menu to the top
-            quitTama();
-            Serial.print("jump");
-            	break;
-          }
+//       switch(userInput) {
+//         case 0:
+//           //enters option chosen by user
+//         lcd_1.clear();
+//           switch(optionsPage) {
+//           	case 0: 
+//             	optionsPage = 0;//new, resets the menu to the top
+//             	animateFriend();
+//             	Serial.print("buddy");
+//             	break;
+//             case 1:
+//             optionsPage = 0;//new, resets the menu to the top
+//             drawFeed();
+//             Serial.print("Feed");
+//             	break;
+//             case 2: 
+//             optionsPage = 0;//new, resets the menu to the top
+//             minigame();
+//             Serial.print("game");
+//             	break;
+//             case 3: 
+//             optionsPage = 0;//new, resets the menu to the top
+//             quitTama();
+//             Serial.print("jump");
+//             	break;
+//           }
         
-          break;
-        case 2:
-          //printOptionsMenu(optionsPage % 2);
-          optionsPage++;
-          printOptionsMenu(optionsPage);
-          break;
-        default:
-          Serial.print("my code is bad haha");
-          break;
-      }
+//           break;
+//         case 2:
+//           //printOptionsMenu(optionsPage % 2);
+//           optionsPage++;
+//           printOptionsMenu(optionsPage);
+//           break;
+//         default:
+//           Serial.print("my code is bad haha");
+//           break;
+//       }
 
     
-    } while (userInput != 1);//stops when button 2/B/red button is pressed
-    //goes back to main menu after b button
-    lcd_1.clear();//smoother transition
-    drawMainUI();
-  }
+//     } while (userInput != 1);//stops when button 2/B/red button is pressed
+//     //goes back to main menu after b button
+//     lcd_1.clear();//smoother transition
+//     drawMainUI();
+//   }
   
-  void animateFriend() {
-    currentScreen = "friend";
-    int armBottom = 5;//bottom of arm sprite
-    byte temp;
+//   void animateFriend() {
+//     currentScreen = "friend";
+//     int armBottom = 5;//bottom of arm sprite
+//     byte temp;
     
-    for(int i = 0; i < 4; i++) {
-      slime.drawSlime(3);
+//     for(int i = 0; i < 4; i++) {
+//       slime.drawSlime(3);
       
-      print_line_to_row(" A   A Hi there!", 0, true);
-      delay(200);
-      for (int i = 0; i < 7; i++) {
+//       print_line_to_row(" A   A Hi there!", 0, true);
+//       delay(200);
+//       for (int i = 0; i < 7; i++) {
         
-        lcd_1.setCursor(i,1);
-        lcd_1.write(3);
-        delay(200);
-        arm[6-i] = B11111;
-        arm[i] = B00000;
-        lcd_1.createChar(3, arm);
-        print_line_to_row(" A   A Hi " + slime.name + "!", 0, true);
-        //delay(200);
+//         lcd_1.setCursor(i,1);
+//         lcd_1.write(3);
+//         delay(200);
+//         arm[6-i] = B11111;
+//         arm[i] = B00000;
+//         lcd_1.createChar(3, arm);
+//         print_line_to_row(" A   A Hi " + slime.name + "!", 0, true);
+//         //delay(200);
 
 
-    	}
+//     	}
     
-    }
+//     }
     
-    slime.incrementStats(1, 0);
-  	delay(1000);
-  }
+//     slime.incrementStats(1, 0);
+//   	delay(1000);
+//   }
   
-  //returns the option selected by the user; (was not necessary lol)
-  //Why did I put a semicolon there?
+//   //returns the option selected by the user; (was not necessary lol)
+//   //Why did I put a semicolon there?
   
-  //will be navigated with home button/C, exited with red button/B
-  void printOptionsMenu(int page) {
-    String optionsTxt[4] = {
-    	"1.Buddy",
-      	"2.Feed",
-      	"3.Game",
-      	"4.Quit"
-    };
+//   //will be navigated with home button/C, exited with red button/B
+//   void printOptionsMenu(int page) {
+//     String optionsTxt[4] = {
+//     	"1.Buddy",
+//       	"2.Feed",
+//       	"3.Game",
+//       	"4.Quit"
+//     };
     
-    lcd_1.clear();//fixes growing arrow bug
-    //bug originated from the area the arrow was in not being cleared haha
-    print_line_to_row(optionsTxt[page], 0, false);
-   	//lcd_1.setCursor((optionsTxt[page].length())+2, 0);
-    //lcd_1.print("<-");
-    print_line_to_row(optionsTxt[page+1], 1, false);
-  }
+//     lcd_1.clear();//fixes growing arrow bug
+//     //bug originated from the area the arrow was in not being cleared haha
+//     print_line_to_row(optionsTxt[page], 0, false);
+//    	//lcd_1.setCursor((optionsTxt[page].length())+2, 0);
+//     //lcd_1.print("<-");
+//     print_line_to_row(optionsTxt[page+1], 1, false);
+//   }
   
-  //THIS IS WHERE SLIME IS FED
-  void drawFeed() {
-    currentScreen = "feed";
-    lcd_1.clear();
-  	print_line_to_row("UNFINISHED,", 0, true);
-    print_line_to_row("SORRY!", 1, true);
-    delay(1000);
+//   //THIS IS WHERE SLIME IS FED
+//   void drawFeed() {
+//     currentScreen = "feed";
+//     lcd_1.clear();
+//   	print_line_to_row("UNFINISHED,", 0, true);
+//     print_line_to_row("SORRY!", 1, true);
+//     delay(1000);
   
   
-  }
+//   }
   
-  //THIS IS THE GOOGLE DINASOUR CLONE
-  void minigame() {
-    minigamePrompt();
-    currentScreen = "minigame";//moved down so ball dont instantly spawn
+//   //THIS IS THE GOOGLE DINASOUR CLONE
+//   void minigame() {
+//     minigamePrompt();
+//     currentScreen = "minigame";//moved down so ball dont instantly spawn
 
-    int score;
-    int userInput;
-    int slimePos = 7;
+//     int score;
+//     int userInput;
+//     int slimePos = 7;
 
-    do {
-      lcd_1.setCursor(0,1);
-      lcd_1.print("                ");
-      slime.placement = slimePos;
-      //claimPoint();//checks before user inputs anything
-      slime.moveSlime(slimePos);
-      userInput = returnInput();
-      //old slime.placement = slimePos;
+//     do {
+//       lcd_1.setCursor(0,1);
+//       lcd_1.print("                ");
+//       slime.placement = slimePos;
+//       //claimPoint();//checks before user inputs anything
+//       slime.moveSlime(slimePos);
+//       userInput = returnInput();
+//       //old slime.placement = slimePos;
       
-      switch(userInput) {
-      	case 0:
-        if (slimePos != 0) {
-          slimePos--;
-        }
-        //oldslimePos--;
-        break;
-        case 1:
-        if (slimePos != 14) {
-          slimePos++;
+//       switch(userInput) {
+//       	case 0:
+//         if (slimePos != 0) {
+//           slimePos--;
+//         }
+//         //oldslimePos--;
+//         break;
+//         case 1:
+//         if (slimePos != 14) {
+//           slimePos++;
         
-        }
-        //oldslimePos++;
-        break;
-      	default:
-        slime.moveSlime(slimePos);
-        break;
+//         }
+//         //oldslimePos++;
+//         break;
+//       	default:
+//         slime.moveSlime(slimePos);
+//         break;
       
-      }  
-      //I have to draw slime on specific coords
-      //I can do if they are on the same x axis then they can
-      //get a point Ill save the score for the end of the game
+//       }  
+//       //I have to draw slime on specific coords
+//       //I can do if they are on the same x axis then they can
+//       //get a point Ill save the score for the end of the game
     
-    }while(userInput != 2);
+//     }while(userInput != 2);
     
-    gameEndScreen();
+//     gameEndScreen();
   
   
-  }
+//   }
   
-  void gameEndScreen() {
-    currentScreen = "minigameEnd";
-    lcd_1.clear();
-    print_line_to_row("Score: ", 0, true);
-    lcd_1.setCursor(0,1);
-    lcd_1.print(score);
-    slime.drawSlime(3);
-    // -- cleans up values for game --
-    delay(2000);
-    score = 0;
-    ballIndex = 0;
-    ballPhase = 0;
-    slime.incrementStats(3, 0);
+//   void gameEndScreen() {
+//     currentScreen = "minigameEnd";
+//     lcd_1.clear();
+//     print_line_to_row("Score: ", 0, true);
+//     lcd_1.setCursor(0,1);
+//     lcd_1.print(score);
+//     slime.drawSlime(3);
+//     // -- cleans up values for game --
+//     delay(2000);
+//     score = 0;
+//     ballIndex = 0;
+//     ballPhase = 0;
+//     slime.incrementStats(3, 0);
     
   
-  }
+//   }
   
-  int drawBall(int timer, int pos) {//in my test ver. I had it at every 100ms
-    int animationStage;
-    animationStage = timer%10;//was mod 5 but it was too fast 
-    switch(animationStage) {
-      case 0:
-      case 1:
-          copyBall(ball1);
-      break;
-      case 2:
-      case 3:
-          copyBall(ball2);
-      break;
-      case 4:
-      case 5:
-          copyBall(ball3);
-      break;
-      case 6:
-      case 7:
-          copyBall(ball4);
-      break;
-      case 8:
-      case 9:
-          copyBall(ball5);
-      break;
-      default:
-      lcd_1.print("failure");
-      break;
+//   int drawBall(int timer, int pos) {//in my test ver. I had it at every 100ms
+//     int animationStage;
+//     animationStage = timer%10;//was mod 5 but it was too fast 
+//     switch(animationStage) {
+//       case 0:
+//       case 1:
+//           copyBall(ball1);
+//       break;
+//       case 2:
+//       case 3:
+//           copyBall(ball2);
+//       break;
+//       case 4:
+//       case 5:
+//           copyBall(ball3);
+//       break;
+//       case 6:
+//       case 7:
+//           copyBall(ball4);
+//       break;
+//       case 8:
+//       case 9:
+//           copyBall(ball5);
+//       break;
+//       default:
+//       lcd_1.print("failure");
+//       break;
 
-    }
+//     }
     
-    lcd_1.createChar(5, currentBall);
-  	lcd_1.setCursor(pos, 0);//PLACE POS VAL HERE
-  	lcd_1.write(5);
-    if(animationStage == 9) {
-      print_line_to_row("                ", 0, true);
-      ballIndex++; //old
-      //print_line_to_row("                ", 0, true);
+//     lcd_1.createChar(5, currentBall);
+//   	lcd_1.setCursor(pos, 0);//PLACE POS VAL HERE
+//   	lcd_1.write(5);
+//     if(animationStage == 9) {
+//       print_line_to_row("                ", 0, true);
+//       ballIndex++; //old
+//       //print_line_to_row("                ", 0, true);
     
-    }
-    return animationStage;
-  }
+//     }
+//     return animationStage;
+//   }
   
-  void copyBall(byte newBall[]) {
-    for (int i = 0; i < 8; i++) {
-      currentBall[i] = newBall[i];
-    }
-  }
+//   void copyBall(byte newBall[]) {
+//     for (int i = 0; i < 8; i++) {
+//       currentBall[i] = newBall[i];
+//     }
+//   }
   
-  void claimPoint() {
-    if (ballPositions[ballIndex] == slime.placement || ballPositions[ballIndex] == slime.placement+1) {
-      score++;
-      print_line_to_row("                ", 0, true);
-      ballIndex++;
-      Serial.print('\n');      
-      Serial.print("currentScore: ");
-      Serial.print(score);
+//   void claimPoint() {
+//     if (ballPositions[ballIndex] == slime.placement || ballPositions[ballIndex] == slime.placement+1) {
+//       score++;
+//       print_line_to_row("                ", 0, true);
+//       ballIndex++;
+//       Serial.print('\n');      
+//       Serial.print("currentScore: ");
+//       Serial.print(score);
       
       
-    }
+//     }
   
-  }
+//   }
   
-  void minigamePrompt() {
-    currentScreen = "gameintro";
-  	int userInput;
+//   void minigamePrompt() {
+//     currentScreen = "gameintro";
+//   	int userInput;
 
-    do {
-      print_line_to_row("CONTROLS:", 0, true); 
-      print_line_to_row("GREEN - JUMP", 1, true); 
-      delay(1500);
-      lcd_1.clear();
+//     do {
+//       print_line_to_row("CONTROLS:", 0, true); 
+//       print_line_to_row("GREEN - JUMP", 1, true); 
+//       delay(1500);
+//       lcd_1.clear();
       
-      print_line_to_row("BLUE - EXIT", 0, true);
-      delay(1500);
-      print_line_to_row("CONT PRESS GREEN", 1, true); 
-      userInput = returnInput();
+//       print_line_to_row("BLUE - EXIT", 0, true);
+//       delay(1500);
+//       print_line_to_row("CONT PRESS GREEN", 1, true); 
+//       userInput = returnInput();
       
     
-    } while(userInput != 0);
-    lcd_1.clear();
-    lcd_1.setCursor(5,0);
-    lcd_1.print("START!");
-    delay(700);
-    lcd_1.clear();
+//     } while(userInput != 0);
+//     lcd_1.clear();
+//     lcd_1.setCursor(5,0);
+//     lcd_1.print("START!");
+//     delay(700);
+//     lcd_1.clear();
   
   
   
-  }
+//   }
   
-  void quitTama() {
-  	currentScreen = "quit";
-    lcd_1.clear();
-    print_line_to_row("GREEN - PLAY", 0, true);
-    if (returnInput() == 0) {
-      lcd_1.clear();
-      titleScreen();
-    }
+//   void quitTama() {
+//   	currentScreen = "quit";
+//     lcd_1.clear();
+//     print_line_to_row("GREEN - PLAY", 0, true);
+//     if (returnInput() == 0) {
+//       lcd_1.clear();
+//       titleScreen();
+//     }
     
   
-  }
+//   }
   
-  void gameOverScreen() {
-  	currentScreen = "gameover";
-    String sadMessage = slime.name + " has left.";
-    lcd_1.clear();
-    print_line_to_row(sadMessage, 0, true);
-    namePicked = false;
-    slime.hunger = 15;
-    slime.joy = 15;
-    slime.name = "default";
-    for (int i = 0; i < 5; i++) {
-      characters[i] = 48;
+//   void gameOverScreen() {
+//   	currentScreen = "gameover";
+//     String sadMessage = slime.name + " has left.";
+//     lcd_1.clear();
+//     print_line_to_row(sadMessage, 0, true);
+//     namePicked = false;
+//     slime.hunger = 15;
+//     slime.joy = 15;
+//     slime.name = "default";
+//     for (int i = 0; i < 5; i++) {
+//       characters[i] = 48;
     
-    }
+//     }
     
-    delay(1000);
-    lcd_1.clear();
-    lcd_1.setCursor(0,0);
-    titleScreen();
+//     delay(1000);
+//     lcd_1.clear();
+//     lcd_1.setCursor(0,0);
+//     titleScreen();
   
   
-  }
+//   }
   
-};
+// };
 
 Menu theScreen;//initializes my scenes
 //Pet slime("default");

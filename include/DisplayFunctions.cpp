@@ -1,5 +1,6 @@
 #include "DisplayFunctions.h"
 
+
 void printArray(char array[], int startingX, int startingY, int size) {
   int temp1 = startingX;//Y doesnt change so does not have to be saved
   //5 is had coded because for some reason the size of method is not working for me

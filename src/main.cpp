@@ -62,6 +62,8 @@ feed game quit
 
 #include <LiquidCrystal.h>
 
+
+
 int seconds = 0;
 
 int pinAccept = 8;
@@ -73,51 +75,7 @@ LiquidCrystal lcd_1(12, 11, 5, 4, 3, 2);
 
 bool namePicked = false;
 
-char characters[5] = {48, 48, 48, 48, 48};//columns for name
-
-/*byte hBarBott[] = {
-  B11111,
-  B11111,
-  B11111,
-  B11111,
-  B11111,
-  B11111,
-  B11111,
-  B11111
-};
-
-byte hBarTop[] = {
-  B11111,
-  B11111,
-  B11111,
-  B11111,
-  B11111,
-  B11111,
-  B11111,
-  B11111
-};
-
-byte jBarBott[] = {
-  B11111,
-  B11111,
-  B11111,
-  B11111,
-  B11111,
-  B11111,
-  B11111,
-  B11111
-};
-
-byte jBarTop[] = {
-  B11111,
-  B11111,
-  B11111,
-  B11111,
-  B11111,
-  B11111,
-  B11111,
-  B11111
-};*/
+char characters[5] = {48, 48, 48, 48, 48}; //columns for name
 
 byte arm[] = {
   B00000,
@@ -184,6 +142,7 @@ byte balloonSprite[] = {
         B00010,
         B00100
       }; 
+
 //THE FOLLOWING ARE BALL SPRITES
 byte currentBall[8];
 
@@ -239,19 +198,6 @@ byte ball5[] = {
   B01110,
   B00000
 };
-
-/*unused asset
-byte ball6[] = {
-  B00000,
-  B00000,
-  B00000,
-  B00000,
-  B00000,
-  B01110,
-  B01110,
-  B01110
-};*/
-
 
 class Food {
   public:
@@ -469,10 +415,6 @@ class Menu {
           gameOverScreen();	
         
         }
-        //counter++;
-        //Serial.print(counter);
-        //Serial.print(" ");
-        //drawMainUI();
       
       } 
      if(digitalRead(pinAccept) == HIGH) {
@@ -510,12 +452,6 @@ class Menu {
       }
       
     } while (result == 3);
-    
-    
-    //slime.depleteStats(counter);
-    //counter = 0;
-    
-    //Serial.print(buttonPress + " BUtton press");
    
     delay(100);//delays result to elimnate any holding
     
@@ -556,8 +492,6 @@ class Menu {
         } else if (userInput == 0) {//this was once 1
         	onChar--;
         }
-        //userInput = returnInput();//new
-        //lcd_1.print(onChar);//old
       }
       userInput = 3;//resets so loop above works
       //Serial.println(currentIndex + " current i");
@@ -582,12 +516,6 @@ class Menu {
   void drawMainScr() {
     currentScreen = "main";
     int userInput;
-    //int counter = 0;
-    //was going to have bars to represent the health and hunger,
-    //but the arduino or lcd ran out of memory haha saves me time though
-    //haha :(
-    
-    
     
     drawMainUI();
     userInput = returnInput();
@@ -605,10 +533,6 @@ class Menu {
       break;
       default:
       Serial.print("my code sucks lol");
-      //counter++;
-      //slime.depleteStats(counter);
-      //Serial.print("counter:");
-      //Serial.print(counter);
       break;
     }
     
@@ -697,50 +621,6 @@ class Menu {
     int armBottom = 5;//bottom of arm sprite
     byte temp;
     
-  	/*slime.drawSlime(3);
-    lcd_1.createChar(3, arm);
-    
-    //Draws the forearm
-    for (int i = 0; i < 7; i++) {
-      lcd_1.setCursor(i,0);
-      lcd_1.write(3);
-    }
-    delay(400);*/
-    //moves bytes up?
-    /*for (int i = 0; i < 3; i++) {
-      lcd_1.clear();//clrs display
-      slime.drawSlime(3);//keeps slime
-      //WORK ON THIS IT MOVES THE ARM UP
-      for(int j = 5; j > 0; j--) {//here it will change, so I have to print it when it changes
-        temp = arm[j];
-        arm[j] = B00000;
-        arm[j-1] = temp;
-        
-        
-        if (arm[j] == B11111) {
-          arm[j] = B00000;
-          
-        
-        }else {
-          arm[j] = B11111;
-        
-        }
-        
-      
-      }*/
-      /*
-      lcd_1.createChar(3, arm);
-      
-      
-      for(int k = 0; k < 7; k++) {
-        lcd_1.setCursor(k, 0);
-        lcd_1.write(3);
-        
-      }      
-      
-      	
-    }*/
-      //{
     for(int i = 0; i < 4; i++) {
       slime.drawSlime(3);
       
@@ -763,10 +643,6 @@ class Menu {
     }
     
     slime.incrementStats(1, 0);
-   
-
-    
-    //lcd_1.createChar(4, wrist);
   	delay(1000);
   }
   
@@ -809,17 +685,8 @@ class Menu {
     int score;
     int userInput;
     int slimePos = 7;
-    //slime.drawSlime(slimePos);
+
     do {
-      
-      //userInput = returnInput();
-      
-      /*if (slimePos > 3) {
-      	slimePos = 2;
-      
-      }else if (slimePos < 1) {
-      	slimePos = 1;
-      }*/
       lcd_1.setCursor(0,1);
       lcd_1.print("                ");
       slime.placement = slimePos;
@@ -846,27 +713,10 @@ class Menu {
         slime.moveSlime(slimePos);
         break;
       
-      }
-      /*if (slimePos > 2) {
-      	slimePos = 2;
-      
-      }else if (slimePos < 1) {
-      	slimePos = 1;
-      }
-      
-      lcd_1.setCursor(0,1);
-      lcd_1.print("                ");
-      slime.drawSlime(slimePos);*/
-      
-      
-      
+      }  
       //I have to draw slime on specific coords
       //I can do if they are on the same x axis then they can
       //get a point Ill save the score for the end of the game
-    
-    
-    
-    
     
     }while(userInput != 2);
     
@@ -891,20 +741,6 @@ class Menu {
     
   
   }
-  
-  /*void slimeJump() {
-  	slime.drawSlime(3);
-  
-  }*/
-  
-  /*void setBallPos (int timer) {
-    int positions = {5, 7, 4, 5, 6, 9, 13, 11, 8, 5, 7, 4, 2, 0};//pos on x axis
-    drawBall(timer, positions);
-    
-  
-  
-  
-  }*/
   
   int drawBall(int timer, int pos) {//in my test ver. I had it at every 100ms
     int animationStage;
@@ -962,21 +798,9 @@ class Menu {
       Serial.print('\n');      
       Serial.print("currentScore: ");
       Serial.print(score);
-      /*Serial.print('\n');
-      Serial.print("Slime Pos: ");
-      Serial.print(slime.placement);
-      Serial.print('\n');
-      Serial.print("ballPos: ");
-      Serial.print(ballPositions[ballIndex]);
-      Serial.print('\n');
-      Serial.print("ballIndex: ");
-      Serial.print(ballIndex);*/
       
       
-    }//891
-      /*Serial.print('\n');
-      Serial.print("OUTSIDE POS: ");
-      Serial.print(slime.placement);*/
+    }
   
   }
   
@@ -1040,18 +864,6 @@ class Menu {
   
   
   }
-  
-  //for the main screen i might do "do while return input !=2"
-
-  
-  void cool() {
-    //lcd_1.clear();
-  	//lcd_1.print("weqqeq");
-  
-  }
-
-
-};
 
 Menu theScreen;//initializes my scenes
 //Pet slime("default");
@@ -1065,9 +877,7 @@ void setup()
   pinMode(pinAccept, INPUT);
   pinMode(pinDecline, INPUT);
   pinMode(pinMenu, INPUT);
-  lcd_1.begin(16, 2); // Set up the number of columns and rows on the LCD.
-  // Print a message to the LCD.
-  //lcd_1.print("hello world!");
+  lcd_1.begin(16, 2); // Set up the number of columns and rows on the LCD. 
 }
 
 void loop()

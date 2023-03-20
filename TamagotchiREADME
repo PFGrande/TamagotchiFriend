@@ -1,6 +1,26 @@
 Tamagotchi Friend:
 
+Refactoring:
+The project is still being refactored. The original version
+can be found on Tikercad:
+https://www.tinkercad.com/things/1z7PvblHkXZ-copy-of-tamagotchi-demo/editel?sharecode=OoenALIZ0OLNzZ9w9TaV_FU94Jf_WF9b3O11rAijUrU
+
+Original Purpose:
 Project made for the Dev Mission Apprentenship project.
 This is a game that lets you care for a virtual pet. The game is
 played with an Arduino using a 2 row LCD monitor and 3 buttons.
 
+Game:
+When starting the game, the virtual pet can be assigned a 5 letter name.
+The virtual pet has two needs: hunger and joy. Both these values deplete over time.
+To replenish hunger and joy, different activities can be performed through the menu.
+The menu allows the player to: 
+    - View an animation that increases joy
+    - Feed the pet (Not implemented yet)
+    - Play a minigame that allows the player to control the virtual pet
+    - Pause the game
+
+Goals of refactoring code:
+    - Seperating classes into different files
+        - Moving functions involving the display to the DisplayFunctions class
+    

@@ -33,23 +33,13 @@
       namePicked = true;
      
     }
-    
-
   }
 
-  
-  
   int Menu::returnInput() {
     delay(140);//helps avoid miss-inputs
 	int result = 3;//3 means some loops will keep going
     int buttonPress = 0;
-    //int ballPhase;//for the minigame portion
-    
-    /*I could probably just check if the result is equal to 3
-    but ill just play it safe because i dont want to mess up
-    
-    */
-    
+    //int ballPhase; for the minigame portion
     do {
       if (currentScreen == "main") {
       	slime.depleteStats();
@@ -176,7 +166,7 @@
       drawOptions();
       break;
       default:
-      Serial.print("my code sucks lol");
+      Serial.print("button out of bounds");
       break;
     }
     
@@ -202,8 +192,8 @@
   
   void Menu::drawOptions() {
     currentScreen = "options";
-  	//Serial.print("these are the options"); works
     lcd_1.clear();
+
     int userInput;
     int optionsPage = 0;
     do {
@@ -221,22 +211,22 @@
         lcd_1.clear();
           switch(optionsPage) {
           	case 0: 
-            	optionsPage = 0;//new, resets the menu to the top
+            	optionsPage = 0;//resets the menu to the top
             	animateFriend();
             	Serial.print("buddy");
             	break;
             case 1:
-            optionsPage = 0;//new, resets the menu to the top
+            optionsPage = 0;
             drawFeed();
             Serial.print("Feed");
             	break;
             case 2: 
-            optionsPage = 0;//new, resets the menu to the top
+            optionsPage = 0;
             minigame();
             Serial.print("game");
             	break;
             case 3: 
-            optionsPage = 0;//new, resets the menu to the top
+            optionsPage = 0;
             quitTama();
             Serial.print("jump");
             	break;
@@ -321,7 +311,7 @@
   
   }
   
-  //THIS IS THE GOOGLE DINASOUR CLONE
+  //THIS IS THE MINIGAME
   void Menu::minigame() {
     minigamePrompt();
     currentScreen = "minigame";//moved down so ball dont instantly spawn

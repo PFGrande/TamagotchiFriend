@@ -1,9 +1,9 @@
+#ifndef MENU_H
+#define MENU_H
+
 #include "sprites.h"
 #include "DisplayFunctions.h"
 #include "Pet.h"
-
-#ifndef MENU_H
-#define MENU_H
 
 int pinAccept = 8;
 int pinDecline = 9;
